@@ -30,8 +30,7 @@ answer = 1
 def dfs(y, x, num):
     global answer
     answer = max(answer, num)
-    if answer == 26:
-        return
+
     for i in range(4):
         py = y + dy[i]
         px = x + dx[i]
