@@ -21,6 +21,7 @@ input = sys.stdin.readline
 
 N, M = map(int, input().split())
 graph = [list(map(int, input().split())) for _ in range(N)]
+cctv_kind = [[], [[0], [1], [2], [3]], [[0, 2], [1, 3]], [[0, 1], [1, 2], [2, 3], [3, 0]], [[0, 1, 2], [1, 2, 3], [2, 3, 0], [3, 0, 1]], [[0, 1, 2, 3]]]
 cctv = []
 for j in range(N):
     for i in range(M):
@@ -31,152 +32,19 @@ min_region = 64
 
 dy = [1, 0, -1, 0]
 dx = [0, 1, 0, -1]
-def watch(y, x, cctv_num, dir):
-    if cctv_num == 1:
+def watch(y, x, cctv_list):
+
+    for i in cctv_list:
         ny = y
         nx = x
         while True:
-            ny += dy[dir]
-            nx += dx[dir]
+            ny += dy[i]
+            nx += dx[i]
             if ny<0 or ny>=N or nx<0 or M<=nx or graph[ny][nx] == 6:
                 break
 
             if graph[ny][nx] == 0:
                 graph[ny][nx] = 7
-
-    elif cctv_num == 2:
-        ny1, nx1 = y, x
-        ny2, nx2 = y, x
-        while True:
-            ny1 += dy[dir]
-            nx1 += dx[dir]
-
-            if ny1<0 or ny1>=N or nx1<0 or M<=nx1 or graph[ny1][nx1] == 6:
-                break
-
-            if graph[ny1][nx1] == 0:
-                graph[ny1][nx1] = 7
-
-        while True:
-            ny2 += dy[dir+2]
-            nx2 += dx[dir+2]
-
-            if ny2 < 0 or ny2 >= N or nx2 < 0 or M <= nx2 or graph[ny2][nx2] == 6:
-                break
-
-            if graph[ny2][nx2] == 0:
-                graph[ny2][nx2] = 7
-
-
-    elif cctv_num == 3:
-
-        ny1, nx1 = y, x
-        ny2, nx2 = y, x
-        while True:
-            ny1 += dy[dir]
-            nx1 += dx[dir]
-
-            if ny1 < 0 or ny1 >= N or nx1 < 0 or M <= nx1 or graph[ny1][nx1] == 6:
-                break
-
-            if graph[ny1][nx1] == 0:
-                graph[ny1][nx1] = 7
-
-        while True:
-            ny2 += dy[(dir + 1)%4]
-            nx2 += dx[(dir + 1)%4]
-
-            if ny2 < 0 or ny2 >= N or nx2 < 0 or M <= nx2 or graph[ny2][nx2] == 6:
-                break
-
-            if graph[ny2][nx2] == 0:
-                graph[ny2][nx2] = 7
-
-
-
-    elif cctv_num == 4:
-        ny1, nx1 = y, x
-        ny2, nx2 = y, x
-        ny3, nx3 = y, x
-
-        while True:
-            ny1 += dy[dir%4]
-            nx1 += dx[dir%4]
-
-            if ny1<0 or ny1>=N or nx1<0 or M<=nx1 or graph[ny1][nx1] == 6:
-                break
-
-            if graph[ny1][nx1] == 0:
-                graph[ny1][nx1] = 7
-
-        while True:
-            ny2 += dy[(dir+1)%4]
-            nx2 += dx[(dir+1)%4]
-
-            if ny2<0 or ny2>=N or nx2<0 or M<=nx2 or graph[ny2][nx2] == 6:
-                break
-
-            if graph[ny2][nx2] == 0:
-                graph[ny2][nx2] = 7
-
-        while True:
-            ny3 += dy[(dir+2)%4]
-            nx3 += dx[(dir+2)%4]
-
-            if ny3<0 or ny3>=N or nx3<0 or M<=nx3 or graph[ny3][nx3] == 6:
-                break
-
-            if graph[ny3][nx3] == 0:
-                graph[ny3][nx3] = 7
-
-    else:
-        ny1, nx1 = y, x
-        ny2, nx2 = y, x
-        ny3, nx3 = y, x
-        ny4, nx4 = y, x
-
-        while True:
-            ny1 += dy[dir % 4]
-            nx1 += dx[dir % 4]
-
-            if ny1 < 0 or ny1 >= N or nx1 < 0 or M <= nx1 or graph[ny1][nx1] == 6:
-                break
-
-            if graph[ny1][nx1] == 0:
-                graph[ny1][nx1] = 7
-
-        while True:
-            ny2 += dy[(dir + 1) % 4]
-            nx2 += dx[(dir + 1) % 4]
-
-            if ny2 < 0 or ny2 >= N or nx2 < 0 or M <= nx2 or graph[ny2][nx2] == 6:
-                break
-
-            if graph[ny2][nx2] == 0:
-                graph[ny2][nx2] = 7
-
-        while True:
-            ny3 += dy[(dir + 2) % 4]
-            nx3 += dx[(dir + 2) % 4]
-
-            if ny3 < 0 or ny3 >= N or nx3 < 0 or M <= nx3 or graph[ny3][nx3] == 6:
-                break
-
-            if graph[ny3][nx3] == 0:
-                graph[ny3][nx3] = 7
-
-        while True:
-            ny4 += dy[(dir + 3) % 4]
-            nx4 += dx[(dir + 3) % 4]
-
-            if ny4 < 0 or ny4 >= N or nx4 < 0 or M <= nx4 or graph[ny4][nx4] == 6:
-                break
-
-            if graph[ny4][nx4] == 0:
-                graph[ny4][nx4] = 7
-
-
-
 
 
 
@@ -194,35 +62,13 @@ def recur(cnt):
 
     y, x = cctv[cnt]
     cctv_num = graph[y][x]
-    if cctv_num == 1:
-        for d in range(4):
-            graph_copy = copy.deepcopy(graph)
-            watch(y, x, 1, d)
-            recur(cnt + 1)
-            graph = graph_copy
-    elif cctv_num == 2:
-        for d in range(2):
-            graph_copy = copy.deepcopy(graph)
-            watch(y, x, 2, d)
-            recur(cnt + 1)
-            graph = graph_copy
-    elif cctv_num == 3:
-        for d in range(4):
-            graph_copy = copy.deepcopy(graph)
-            watch(y, x, 3, d)
-            recur(cnt + 1)
-            graph = graph_copy
-    elif cctv_num == 4:
-        for d in range(4):
-            graph_copy = copy.deepcopy(graph)
-            watch(y, x, 4, d)
-            recur(cnt + 1)
-            graph = graph_copy
-    else:
+    for i in cctv_kind[cctv_num]:
         graph_copy = copy.deepcopy(graph)
-        watch(y, x, 5, 0)
+        watch(y, x, i)
         recur(cnt + 1)
         graph = graph_copy
+
+
 
 recur(0)
 print(min_region)
