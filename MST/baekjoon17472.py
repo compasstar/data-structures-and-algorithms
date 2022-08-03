@@ -74,22 +74,22 @@ for j in range(N):
             py, px = j, i
             w = 0
 
-            while 0<=py<N and 0<=px<M:
-
-                if region[py][px] != num and region[py][px] != 0:
-                    if w > 1:
-                        edges.append([w, num, region[py][px]])
-                    break
-
+            while True:
                 py += dy[d]
                 px += dx[d]
-                if 0<=py<N and 0<=px<M:
+                if 0 <= py < N and 0 <= px < M:
                     if region[py][px] == 0:
                         w += 1
 
-                    # 만일 같은 섬에 다시 만나면 break
-                    if region[py-dy[d]][px-dx[d]] == 0 and region[py][px] == num:
+                    else:
+                        if region[py][px] != num and w > 1: # 동일한 섬이여도 그냥 break 해버린다
+                            edges.append([w, num, region[py][px]])
                         break
+
+                else:
+                    break
+
+
 
 # 3. MST-크루스칼 이용하여 최소 거리 측정하기
 edges.sort(reverse=True)
