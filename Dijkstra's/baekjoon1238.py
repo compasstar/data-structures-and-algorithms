@@ -23,19 +23,12 @@ import heapq
 input = sys.stdin.readline
 INF = sys.maxsize
 
-N, M, X = map(int, input().split())
-edges = [[] for _ in range(N+1)]
-for i in range(M):
-    st, en, t = map(int, input().split())
-    edges[st].append([t, en])
 
-time = [0] * (N+1)
+def dijkstra(st):
+    dist = [INF] * (N + 1)
+    dist[st] = 0
 
-for start in range(1, N+1):
-    dist = [INF] * (N+1)
-    dist[start] = 0
-
-    heap = [[0, start]]
+    heap = [[0, st]]
     while heap:
         w, node = heapq.heappop(heap)
         if w != dist[node]:
@@ -46,34 +39,30 @@ for start in range(1, N+1):
                 dist[next_node] = nw + w
                 heapq.heappush(heap, [dist[next_node], next_node])
 
+    return dist
+
+
+# 자료구조
+N, M, X = map(int, input().split())
+edges = [[] for _ in range(N+1)]
+for i in range(M):
+    st, en, t = map(int, input().split())
+    edges[st].append([t, en])
+
+time = [0] * (N+1)
+
+# 출발할 때
+for start in range(1, N+1):
+    dist = dijkstra(start)
     time[start] = dist[X]
 
 
 # 돌아올 때
-dist = [INF] * (N+1)
-dist[X] = 0
-
-heap = [[0, X]]
-while heap:
-    w, node = heapq.heappop(heap)
-    if w != dist[node]:
-        continue
-
-    for nw, next_node in edges[node]:
-        if dist[next_node] > nw + w:
-            dist[next_node] = nw + w
-            heapq.heappush(heap, [dist[next_node], next_node])
-
+dist = dijkstra(X)
 for i in range(1, N+1):
     time[i] += dist[i]
 
 answer = max(time)
 print(answer)
-
-
-
-
-
-
 
 
