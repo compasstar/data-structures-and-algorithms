@@ -11,3 +11,7 @@ right = bisect.bisect_right(list, value)
 - right: list에서 value값의 인덱스 중 가장 오른쪽 인덱스를 구한다
 - 한 list에 동일한 value가 많을 때 유용한 함수
 - 예시) `list = [1, 2, 2, 3, 3, 3, 4, 4, 5, 5, 5]`
+
+
+### 참고블로그
+https://www.acmicpc.net/blog/view/109
