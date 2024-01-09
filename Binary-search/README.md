@@ -13,5 +13,18 @@ right = bisect.bisect_right(list, value)
 - 예시) `list = [1, 2, 2, 3, 3, 3, 4, 4, 5, 5, 5]`
 
 
-### 참고블로그
-https://www.acmicpc.net/blog/view/109
+```
+# start와 end의 범위는 항상 정답의 범위를 나타낼 수 있도록 해야 한다.
+# start는 범위 -1, end는 범위 + 1 이다.
+start = low - 1
+end = high + 1
+
+# start 와 end 사이에 mid가 존재해야 한다
+while (start + 1 < end):
+  mid = (start + end) // 2
+  if Check(mid):
+    start = mid
+  else:
+    end = mid
+  print(end)
+```
