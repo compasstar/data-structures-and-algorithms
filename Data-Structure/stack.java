@@ -15,6 +15,8 @@ public class Main {
 		int N = Integer.parseInt(st.nextToken());
 		stack = new int[N];
 		
+		StringBuilder answer = new StringBuilder();
+		
 		for (int i=0; i<N; i++) {
 			st = new StringTokenizer(br.readLine());
 			String cmd = st.nextToken();
@@ -22,15 +24,17 @@ public class Main {
 			if (cmd.equals("push")) {
 				push(Integer.parseInt(st.nextToken()));
 			} else if (cmd.equals("pop")) {
-				System.out.println(pop());
+				answer.append(pop()).append('\n');
 			} else if (cmd.equals("size")) {
-				System.out.println(size());
+				answer.append(size()).append('\n');
 			} else if (cmd.equals("empty")) {
-				System.out.println(empty());
+				answer.append(empty()).append('\n');
 			} else if (cmd.equals("top")) {
-				System.out.println(top());
+				answer.append(top()).append('\n');
 			}
 		}
+		
+		System.out.println(answer);
 	}
 	
 	private static void push(int item) {
