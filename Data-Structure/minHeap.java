@@ -8,23 +8,25 @@ import java.util.StringTokenizer;
 
 public class Main {
 	
-	private static int heap[];
+	private static int[] heap;
 	private static int size = 0;
-	
+
 	private static int N;
-	
+
 	public static void main(String[] args) throws IOException {
 		
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
+		
 		N = Integer.parseInt(st.nextToken());
-		heap = new int[N+1];
+		heap = new int[N];
 		
 		StringBuilder answer = new StringBuilder();
 		
 		for (int i=0; i<N; i++) {
 			st = new StringTokenizer(br.readLine());
 			int cmd = Integer.parseInt(st.nextToken());
+			
 			if (cmd > 0) {
 				push(cmd);
 			} else if (cmd == 0) {
@@ -33,6 +35,7 @@ public class Main {
 		}
 		
 		System.out.println(answer);
+
 	}
 	
 	private static void push(int value) {
@@ -40,17 +43,17 @@ public class Main {
 		size++;
 		
 		int current = size;
-		while (current > 1 && (heap[current] < heap[current / 2])) {
-			// 부모노드와 자식노드 교체
-			int temp = heap[current / 2];
-			heap[current / 2] = heap[current];
-			heap[current] = temp;
+		while (current > 1 && heap[current] < heap[current / 2]) {
+			int temp = heap[current];
+			heap[current] = heap[current / 2];
+			heap[current / 2] = temp;
+			
 			current /= 2;
 		}
 	}
 	
 	private static int pop() {
-		if (size <= 0) {
+		if (size == 0) {
 			return 0;
 		}
 		
@@ -59,8 +62,7 @@ public class Main {
 		size--;
 		
 		int current = 1;
-		while (current <= size && current * 2 <= size) {
-			
+		while (current * 2 <= size) {
 			int child;
 			if (current * 2 + 1 > size) {
 				child = current * 2;
@@ -71,7 +73,7 @@ public class Main {
 					child = current * 2 + 1;
 				}
 			}
-
+			
 			if (heap[current] < heap[child]) {
 				break;
 			}
@@ -84,5 +86,5 @@ public class Main {
 		}
 		
 		return value;
-	}
+	}	
 }
