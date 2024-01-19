@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 class Node {
+	
 	String key;
 	String value;
 	Node next;
@@ -18,25 +19,24 @@ class Node {
 	}
 }
 
-
 /**
  * HashCode 만드는 코드 암기 (getHashCodeIndex)
  * 해시테이블의 사이즈는 크기가 큰 소수로 하는 것이 시간단축 된다 ==> 10,007, 400,009
  */
 class HashMap {
 	
-	Node[] table;
-	int size;
+	private Node[] table;
+	private int size;
 	
 	public HashMap(int size) {
-		table = new Node[size];
+		this.table = new Node[size];
 		this.size = size;
 	}
 	
-	public int getHashCodeIndex(String key) {
+	private int getHashCodeIndex(String key) {
 		int hash = 5381;
 		for (char c : key.toCharArray()) {
-			hash = ((hash << 5) + hash) + (int)c;
+			hash = ((hash << 5) + hash) + (int) c;
 		}
 		if (hash < 0) {
 			hash *= -1;
@@ -52,15 +52,17 @@ class HashMap {
 			return;
 		}
 		
-		Node tempNode = table[index];
-		if (tempNode.key.equals(key)) {
-			tempNode.key = key;
+		Node currentNode = table[index];
+		if (currentNode.key.equals(key)) {
+			currentNode.value = value;
 			return;
 		}
-		while (tempNode.next != null && !tempNode.next.key.equals(key)) {
-			tempNode = tempNode.next;
+		
+		while (currentNode.next != null && !currentNode.next.key.equals(key)) {
+			currentNode = currentNode.next;
 		}
-		tempNode.next = new Node(key, value);
+		
+		currentNode.next = new Node(key, value);
 	}
 	
 	public String get(String key) {
@@ -68,51 +70,52 @@ class HashMap {
 		
 		if (table[index] == null) {
 			return null;
-		} 
-		
-		Node tempNode = table[index];
-		while (tempNode != null && !tempNode.key.equals(key)) {
-			tempNode = tempNode.next;
 		}
-		return tempNode.value;
+		
+		Node currentNode = table[index];
+		while (currentNode != null && !currentNode.key.equals(key)) {
+			currentNode = currentNode.next;
+		}
+		return currentNode.value;
 	}
 }
 
 
-
 public class Main {
-
+	
 	private static int N;
 	private static int M;
-	private static int MAX_SIZE = 400009;
-
+	private static final int MAX_SIZE = 400009;
+	
 	public static void main(String[] args) throws IOException {
+		
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
+		
 		N = Integer.parseInt(st.nextToken());
 		M = Integer.parseInt(st.nextToken());
-
+		
 		HashMap hashMap = new HashMap(MAX_SIZE);
 		HashMap hashMapReverse = new HashMap(MAX_SIZE);
-
+		
 		for (int i = 1; i < N + 1; i++) {
 			st = new StringTokenizer(br.readLine());
-			String input = st.nextToken();
-			hashMap.put(i + "", input);
-			hashMapReverse.put(input, i + "");
+			String value = st.nextToken();
+			hashMap.put(i + "", value);
+			hashMapReverse.put(value, i + "");
 		}
-
-		StringBuilder answer = new StringBuilder();
+		
+		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < M; i++) {
 			st = new StringTokenizer(br.readLine());
-			String input = st.nextToken();
-			if (input.charAt(0) >= 'A' && input.charAt(0) <= 'Z') {
-				answer.append(hashMapReverse.get(input)).append('\n');
+			String key = st.nextToken();
+			
+			if (key.charAt(0) >= 'A' && key.charAt(0) <= 'Z') {
+				sb.append(hashMapReverse.get(key)).append('\n');
 			} else {
-				answer.append(hashMap.get(input)).append('\n');
+				sb.append(hashMap.get(key)).append('\n');
 			}
 		}
-
-		System.out.println(answer);
+		System.out.println(sb);
 	}
 }
