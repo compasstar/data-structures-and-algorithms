@@ -73,13 +73,16 @@ class Trie {
 
 public class Main {
 	
+	private static final Integer BOARD_SIZE = 4;
+	private static final Integer MAX_WORD_SIZE = 8;
+	
 	private static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	private static StringTokenizer st;
 	
 	private static int w;
 	private static int b;
 	
-	private static char[][] board;
+	private static char[][] board = new char[BOARD_SIZE][BOARD_SIZE];
 	private static boolean[][] visited;
 	private static int totalPoint;
 	private static int cnt;
@@ -89,13 +92,34 @@ public class Main {
 	private static int[] dy = {-1, -1, -1, 0, 0, 1, 1, 1};
 	private static int[] dx = {-1, 0, 1, -1, 1, -1, 0, 1};
 	
+	
 	private static Trie trie = new Trie();
 	
 	public static void main(String[] args) throws IOException {
+		
+		/**
+		 * 사전정보 트라이에 삽입
+		 */
+		getWordDictionary();
+		
+		/**
+		 * 보드 개수(b)만큼 반복하여 메인 로직을 실행한다
+		 * findWords 셋에 단어들을 찾아서 삽입한다
+		 */
+		for (int k=0; k<b; k++) {
+			//단어들 찾아서 set 에 삽입
+			findWords(k);
+			
+			//정답 출력
+			printAnswer();
+		}
+	}
+	
+	private static void getWordDictionary() throws IOException {
 		st = new StringTokenizer(br.readLine());
 		w = Integer.parseInt(st.nextToken());
 		
-		//트라이에 삽입
+		//트라이에 단어 삽입
 		for (int i=0; i<w; i++) {
 			trie.add(br.readLine());
 		}
@@ -103,44 +127,32 @@ public class Main {
 		
 		st = new StringTokenizer(br.readLine());
 		b = Integer.parseInt(st.nextToken());
-		board = new char[4][4];
+	}
+	
+	private static void findWords(int k) throws IOException {
+		//보드 만들기
+		for (int i=0; i<BOARD_SIZE; i++) {
+			board[i] = br.readLine().toCharArray();
+		}
+		if (k != b-1) {
+			br.readLine();
+		}
 		
-		for (int k=0; k<b; k++) {
-			for (int i=0; i<4; i++) {
-				board[i] = br.readLine().toCharArray();
-			}
-			if (k != b-1) {
-				br.readLine();
-			}
-			
-			totalPoint = 0;
-			longest = "";
-			cnt = 0;
-			findWords = new HashSet<>();
-			for (int j=0; j<4; j++) {
-				for (int i=0; i<4; i++) {
-					Node nowNode = trie.root.childs[board[j][i] - 'A'];
-					if (nowNode == null) {
-						continue;
-					}
-					visited = new boolean[4][4];
-					dfs(new Point(j, i, nowNode), board[j][i] + "");
+		findWords = new HashSet<>();
+		for (int j=0; j<BOARD_SIZE; j++) {
+			for (int i=0; i<BOARD_SIZE; i++) {
+				Node nowNode = trie.root.childs[board[j][i] - 'A'];
+				if (nowNode == null) {
+					continue;
 				}
+				visited = new boolean[BOARD_SIZE][BOARD_SIZE];
+				dfs(new Point(j, i, nowNode), board[j][i] + "");
 			}
-			
-			//정답 세팅
-			List<String> tempFindWords = new ArrayList<>(findWords);
-			Collections.sort(tempFindWords);
-			for (String s : tempFindWords) {
-				setAnswer(s);
-			}
-			
-			System.out.println(totalPoint + " " + longest + " " + cnt);
 		}
 	}
 	
 	private static void dfs(Point point, String nowWord) {
-		if (nowWord.length() > 8) {
+		if (nowWord.length() > MAX_WORD_SIZE) {
 			return;
 		}
 
@@ -152,7 +164,7 @@ public class Main {
 			int nextY = point.y + dy[d];
 			int nextX = point.x + dx[d];
 			
-			if (nextY < 0 || nextY >= 4 || nextX < 0 || nextX >= 4 || visited[nextY][nextX]) {
+			if (nextY < 0 || nextY >= BOARD_SIZE || nextX < 0 || nextX >= BOARD_SIZE || visited[nextY][nextX]) {
 				continue;
 			}
 			
@@ -163,6 +175,28 @@ public class Main {
 				visited[point.y][point.x] = false; 
 			}
 		}	
+	}
+	
+	private static void printAnswer() {
+		// 필요한 값들 초기화
+		totalPoint = 0;
+		longest = "";
+		cnt = 0;
+		
+		List<String> tempFindWords = new ArrayList<>(findWords);
+		Collections.sort(tempFindWords);
+		for (String s : tempFindWords) {
+			setAnswer(s);
+		}
+		System.out.println(totalPoint + " " + longest + " " + cnt);
+	}
+	
+	private static void setAnswer(String word) {
+		totalPoint += getScore(word.length());
+		if (longest.length() < word.length()) {
+			longest = word;
+		} 
+		cnt++;
 	}
 	
 	private static int getScore(int length) {
@@ -179,15 +213,6 @@ public class Main {
 			point += 11;
 		}
 		return point;
-	}
-	
-	private static void setAnswer(String word) {
-		int length = word.length();
-		totalPoint += getScore(length);
-		if (longest.length() < length) {
-			longest = word;
-		} 
-		cnt++;
 	}
 }
 
