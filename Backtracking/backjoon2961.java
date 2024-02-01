@@ -56,7 +56,8 @@ public class Main {
     		ingredients[i] = new Ingredient(S, B);
     	}
     	
-    	dfs(0, 1, 0);
+//    	dfs(0, 1, 0);
+    	dfsBit(0, 0B0000000000);
     	System.out.println(minDiff);
     }
     
@@ -75,5 +76,30 @@ public class Main {
     	
     	//재료 추가안함
     	dfs(index + 1, totalS, totalB);
+    }
+    
+    private static void dfsBit(int index, int food) {
+    	if (index == N) {
+    		int totalS = 1;
+    		int totalB = 0;
+    		for (int i=0; i<N; i++) {
+    			int temp = food % 2;
+    			food /= 2;
+    			if (temp == 1) {
+    				totalS *= ingredients[i].S;
+    				totalB += ingredients[i].B;
+    			}
+    		}
+    		if (totalB == 0) {
+    			return;
+    		}
+    		int diff = Math.abs(totalS - totalB);
+    		minDiff = Math.min(minDiff, diff);
+    		
+    		return;
+    	}
+
+    	dfsBit(index + 1, food | 1 << index);
+    	dfsBit(index + 1, food);
     }
 }
