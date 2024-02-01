@@ -1,10 +1,8 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.StringTokenizer;
 
 /**
  * 1. 아이디어
@@ -25,6 +23,7 @@ public class Main {
 	
 	private static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	private static int N;
+	private static List<Integer> plusNumber = Arrays.asList(1, 3, 5, 7, 9);
 
     public static void main(String[] args) throws NumberFormatException, IOException {
     	N = Integer.parseInt(br.readLine());
@@ -41,8 +40,8 @@ public class Main {
     		return;
     	}
     	
-    	for (int i=1; i<10; i++) {
-    		int nextNumber = number * 10 + i;
+    	for (int plus : plusNumber ) {
+    		int nextNumber = number * 10 + plus;
     		if (isPrime(nextNumber)) {
     			dfs(depth + 1, nextNumber);
     		}
