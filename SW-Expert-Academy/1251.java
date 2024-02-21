@@ -76,10 +76,10 @@ public class Solution {
 	private static Point[] islands;
 	private static double E;
 	private static double minCost;
-	
-	private static double graph[][];
+
 	
 	private static int[] parent;
+	private static Queue<Edge> pq;
 	
 	
 
@@ -119,25 +119,16 @@ public class Solution {
     	
     	E = Double.parseDouble(br.readLine());
     	
-    	graph = new double[N+1][N+1];
-    	
     	parent = new int[N+1];
     	for (int i=1; i<N+1; i++) {
     		parent[i] = i;
     	}
     	
     	minCost = 0;
+    	pq = new PriorityQueue<>();
     }
     
     private static void getMinCost() {
-    	
-    	Queue<Edge> pq = new PriorityQueue<>();
-    	for (int j=1; j<N+1; j++) {
-    		for (int i=1; i<N+1; i++) {
-    			pq.offer(new Edge(j, i, graph[j][i]));
-    		}
-    	}
-    	
     	while (!pq.isEmpty()) {
     		Edge nowEdge = pq.poll();
     		if (union(nowEdge.from, nowEdge.to)) {
@@ -148,10 +139,9 @@ public class Solution {
     
     private static void makeGraph() {
     	for (int j=1; j<N+1; j++) {
-    		for (int i=1; i<N+1; i++) {
+    		for (int i=j+1; i<N+1; i++) {
     			double distance = E * (Math.pow(islands[j].y - islands[i].y, 2) + Math.pow(islands[j].x - islands[i].x, 2));
-    			graph[j][i] = distance;
-    			graph[i][j] = distance;
+    			pq.offer(new Edge(j, i, distance));
     		}
     	}
     }
@@ -160,7 +150,7 @@ public class Solution {
     	if (parent[x] == x) {
     		return x;
     	}
-    	return find(parent[x]);
+    	return parent[x] = find(parent[x]);
     }
     
     private static boolean union(int y, int x) {
