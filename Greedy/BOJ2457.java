@@ -5,9 +5,6 @@ import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 
 /**
- * [프리랜서]
- * @author 이재홍
- * 
  * 1. 아이디어
  * 프로젝트 N개
  * 3/1 ~ 11/30 매일 한 가지 이상 프로젝트 참여
@@ -75,33 +72,13 @@ class Project implements Comparable<Project> {
 	}
 }
 
-class Day implements Comparable<Day> {
+class Day {
 	int month;
 	int day;
 	
 	public Day(int month, int day) {
 		this.month = month;
 		this.day = day;
-	}
-
-	@Override
-	public int compareTo(Day o) {
-		
-		if (this.month < o.month) {
-			return 1;
-		} else if (this.month > o.month) {
-			return -1;
-		} else if (this.month == o.month) {
-			if (this.day < o.day) {
-				return 1;
-			} else if (this.day > o.day) {
-				return -1;
-			} else {
-				return 0;
-			}
-		}
-		
-		return 0;
 	}
 }
 
@@ -177,10 +154,9 @@ public class Main {
 				}
 			}
 			cnt++;		
-			
 			to = maxTo;
 		}
-		
+
 		return 0;
 	}
 	
