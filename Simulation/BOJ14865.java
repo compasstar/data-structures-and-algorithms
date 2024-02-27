@@ -1,9 +1,9 @@
-
 /**
  * 1. 아이디어
  * 지도를 그리고 
  * 다른 봉우리에 의해 포함되지 않는 봉우리 개수 구하시오
  * 다른 봉우리를 포함하지 않는 봉우리 개수 구하시오
+ * 
  */
 
 import java.io.BufferedReader;
@@ -105,9 +105,9 @@ public class Main {
 		}
 		
 		
-		if (nowY < originY) {
+		if (nowY < 0 && originY > 0) {
 			mountain.add(new xAxis(true, originX));
-		} else if (nowY > originY) {
+		} else if (nowY > 0 && originY < 0) {
 			mountain.add(new xAxis(false, originX));
 		}
 
