@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/SW-Expert-Academy" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Stack" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/TopologicalSort" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Trie" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Two-pointer" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/datastructure" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/algorithm2/BFS" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/algorithm2/Backtracking" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/algorithm2/Binary-search" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/algorithm2/DP" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/algorithm2/Dijkstra's" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/algorithm2/Divide-Conquer" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/algorithm2/Floyd" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/algorithm2/Graph" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/algorithm2/Greedy" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/algorithm2/Hashing" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/algorithm2/MST" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/algorithm2/Math" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/algorithm2/Realize" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/algorithm2/Recursion" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/algorithm2/Simulation" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/algorithm2/prefixsum" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/algorithm2/sort" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
