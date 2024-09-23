@@ -1,7 +1,9 @@
 # Array (배열)
 
-![array](https://github.com/user-attachments/assets/540df514-5f17-4e9c-aa64-f32a87533f6b)
 번호(인덱스)에 각 데이터를 대응시킨 자료구조
+
+![array](https://github.com/user-attachments/assets/540df514-5f17-4e9c-aa64-f32a87533f6b)
+
 
 ## 코드
 ```java
@@ -11,7 +13,7 @@ int[] array = new int[10];
 //추가
 array[4] = 5;
 
-//접근
+//탐색
 int a = array[4];
 
 //제거
@@ -19,7 +21,7 @@ array[4] = 0;
 ```
 
 ## 시간복잡도
-|  접근  |  추가  | 제거 |
+|  탐색  |  추가  | 제거 |
 |:----:|:----:| :---: |
 | O(1) | O(1) | O(1) |
 
