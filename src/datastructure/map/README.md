@@ -14,7 +14,7 @@ Map<Integer, String> hashMap = new HashMap<Integer, String>();
 | Collection<V> values() | 해시맵의 values 반환                              |       |
 
 ## 특징
-- 탐색, 추가, 제거 모두 시간복잡도 O(1) 로 매우 빠릅니다
+- 탐색, 추가, 제거 모두 시간복잡도 O(1) 로 매우 빠르다
 
 # TreeMap (트리맵)
 Key - Value 쌍을 RedBlack-Tree 로 관리하는 자료구조
