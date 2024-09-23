@@ -27,7 +27,7 @@ Map<Integer, String> treeMap = new TreeMap<Integer, String>();
 | 메서드                              | 설명                                          |  시간복잡도   |
 |:---------------------------------|:--------------------------------------------|:--------:|
 | V get(Object key)                | key 값을 통해 value 값을 탐색한다                     | O(log n) |
-| V put(K key, V value)            | key-value 쌍을 추가한다. (key 값에 매핑된 이전 value 리턴) | O(log n) |
+| V put(K key, V value)            | key-value 쌍을 추가한다 (key 값에 매핑된 이전 value 리턴) | O(log n) |
 | V remove(Object key)             | 해당 key-value 쌍 제거                           | O(log n) |
 | Collection<V> values()           | 트리맵의 values 반환                              |          |
 | SortedMap<K, V> headMap(K toKey) | toKey **미만**의 key 값만을 가지는 트리맵의 부분을 반환           |          |
