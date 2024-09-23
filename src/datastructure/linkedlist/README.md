@@ -1,6 +1,8 @@
 # Linked List (연결 리스트)
 노드당 데이터와 포인터를 가지고 노드끼리 한 줄로 연결되어 있는 자료구조
 
+![linkedlist](https://github.com/user-attachments/assets/4b8a0f54-e3be-40c6-995d-0166e9291ed3)
+
 ```java
 LinkedList<Integer> linkedList = new LinkedList<>();
 ```
