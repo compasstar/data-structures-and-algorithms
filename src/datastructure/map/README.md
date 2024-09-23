@@ -20,7 +20,7 @@ Map<Integer, String> hashMap = new HashMap<Integer, String>();
 Key - Value 쌍을 RedBlack-Tree 로 관리하는 자료구조
 
 ```java
-Map<Integer, String> treeMap = new TreeMap<Integer, String>();
+TreeMap<Integer, String> treeMap = new TreeMap<Integer, String>();
 ```
 
 ## 메서드
