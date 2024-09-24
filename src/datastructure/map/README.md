@@ -38,6 +38,35 @@ TreeMap<Integer, String> treeMap = new TreeMap<Integer, String>();
 | K firstKey() | 가장 작은 key 값을 반환한다           | O(log n) |
 | K lastKey() | 가장 큰 key 값을 반환한다           | O(log n) |
 
+## 우선순위 설정하기
+
+### Comparable
+```java
+class Node implements Comparable<Node> {
+    int id;
+    int w;
+
+    public Node(int id, int w) {
+        this.id = id;
+        this.w = w;
+    }
+
+    @Override
+    public int compareTo(Node o) {
+        return this.w - o.w;
+    }
+}
+
+TreeMap<Node, Integer> treeMap = new TreeMap<>();
+```
+
+### 람다식
+```java
+TreeMap<Node, Integer> treeMap = new TreeMap<>((n1, n2) -> n1.w - n2.w);
+```
+
+w를 기준으로 우선순위 정하기. w가 낮을수록 우선순위가 높습니다.
+
 
 ## 특징
 - 탐색, 추가, 제거에 O(log n)의 시간복잡도를 갖기에 해시맵에 비해 불리하다

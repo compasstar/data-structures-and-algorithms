@@ -38,6 +38,35 @@ TreeSet<String> set = new TreeSet<>();
 | E first()                                       | 가장 작은 값을 반환한다                                         | O(log n) |
 | E last()                                        | 가장 큰 값을 반환한다                                         | O(log n) |
 
+## 우선순위 설정하기
+
+### Comparable
+```java
+class Node implements Comparable<Node> {
+    int id;
+    int w;
+
+    public Node(int id, int w) {
+        this.id = id;
+        this.w = w;
+    }
+
+    @Override
+    public int compareTo(Node o) {
+        return this.w - o.w;
+    }
+}
+
+TreeSet<Node> treeSet = new TreeSet<>();
+```
+
+### 람다식
+```java
+TreeSet<Node> treeSet = new TreeSet<>((n1, n2) -> n1.w - n2.w);
+```
+
+w를 기준으로 우선순위 정하기. w가 낮을수록 우선순위가 높습니다.
+
 ## 특징
 - Iterator 사용이 가능하다 (순회할 때 사용)
 - TreeSet 의 경우 내부적으로 TreeMap 을 생성하는 방식으로 작동하기에 성능 차이는 없다
